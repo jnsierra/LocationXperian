@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints version="2.0" xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
+  <endpoint implementation="co.com.datacredito.services.v1.serviciolocalizacion.ServicioLocalizacionPortDmzHttpsImpl" name="ServicioLocalizacion" url-pattern="/ServicioLocalizacion"/>
+  <endpoint implementation="co.com.datacredito.services.v1.serviciolocalizacion.ServicioLocalizacionPortWanHttpsImpl" name="ServicioLocalizacion" url-pattern="/ServicioLocalizacion"/>
+</endpoints>
