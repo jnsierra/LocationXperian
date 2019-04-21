@@ -6,7 +6,6 @@
 package com.holding.rest;
 
 import co.com.datacredito.services.schema.serviciolocalizacion.v1.ConsultarDatosLocalizacion;
-import co.com.datacredito.services.schema.serviciolocalizacion.v1.ConsultarDatosLocalizacionResponse;
 import com.holding.dto.ConsultarDatosLocalizacionDto;
 import com.holding.service.ILocationService;
 import org.modelmapper.ModelMapper;
@@ -30,7 +29,7 @@ public class LocationController {
     @Autowired
     ModelMapper mapper;
     
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<String> getLocation(@RequestBody(required = true)ConsultarDatosLocalizacionDto consultarDatosLocalizacionDto ){
         return new ResponseEntity<>(locationService.getLocation(mapper.map(consultarDatosLocalizacionDto, ConsultarDatosLocalizacion.class)) , HttpStatus.OK);
     }
