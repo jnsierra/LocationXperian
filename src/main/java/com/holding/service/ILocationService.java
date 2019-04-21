@@ -14,6 +14,6 @@ import co.com.datacredito.services.schema.serviciolocalizacion.v1.ConsultarDatos
  */
 public interface ILocationService {
     
-    public ConsultarDatosLocalizacionResponse getLocation(ConsultarDatosLocalizacion _consultarDatosLocalizacion_parameters);
+    public String getLocation(ConsultarDatosLocalizacion _consultarDatosLocalizacion_parameters);
     
 }

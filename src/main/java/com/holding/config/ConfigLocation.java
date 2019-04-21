@@ -6,6 +6,7 @@
 package com.holding.config;
 
 import co.com.datacredito.services.v1.serviciolocalizacion.ServicioLocalizacion;
+import com.holding.reconocerxsd.CustomLoggingInterceptor;
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
@@ -41,12 +42,16 @@ public class ConfigLocation {
     public ServicioLocalizacion getHttpConduit(@Qualifier("tLSClientParameters") TLSClientParameters tlsCP, @Qualifier(value = "clientLocation") Object client, @Qualifier(value = "WSS4OutInterceptor") WSS4JOutInterceptor wss4jOut) {
         LoggingOutInterceptor loggingOutInterceptor;
         LoggingInInterceptor loggingInInterceptor;
+        //interceptor para capturar el response del servicio 
+        CustomLoggingInterceptor customLoggingInterceptor = new CustomLoggingInterceptor();
         loggingOutInterceptor = new LoggingOutInterceptor();
         loggingOutInterceptor.setPrettyLogging(true);
         ClientProxy.getClient(client).getOutInterceptors().add(loggingOutInterceptor);
         loggingInInterceptor = new LoggingInInterceptor();
         loggingInInterceptor.setPrettyLogging(true);
         ClientProxy.getClient(client).getInInterceptors().add(loggingInInterceptor);
+        //se añade el interceptor creado
+        ClientProxy.getClient(client).getInInterceptors().add(customLoggingInterceptor);
         ClientProxy.getClient(client).getOutInterceptors().add(wss4jOut);
 
         HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(client).getConduit();

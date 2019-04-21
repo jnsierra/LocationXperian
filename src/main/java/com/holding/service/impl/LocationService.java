@@ -6,11 +6,14 @@
 package com.holding.service.impl;
 
 import co.com.datacredito.services.schema.serviciolocalizacion.v1.ConsultarDatosLocalizacion;
-import co.com.datacredito.services.schema.serviciolocalizacion.v1.ConsultarDatosLocalizacionResponse;
 import co.com.datacredito.services.v1.serviciolocalizacion.ServicioLocalizacion;
+import com.holding.reconocerxsd.CustomLoggingInterceptor;
 import com.holding.reconocerxsd.SignaturePwdClientCallBackHandler;
 import com.holding.service.ILocationService;
+import com.holding.util.GetOutputTagXML;
 import javax.annotation.PostConstruct;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -41,16 +44,19 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public ConsultarDatosLocalizacionResponse getLocation(ConsultarDatosLocalizacion _consultarDatosLocalizacion_parameters) {
-        ConsultarDatosLocalizacionResponse _consultarDatosLocalizacion__return = null;
-        try {            
-            _consultarDatosLocalizacion__return = port.consultarDatosLocalizacion(_consultarDatosLocalizacion_parameters);
+    public String getLocation(ConsultarDatosLocalizacion _consultarDatosLocalizacion_parameters) {
+        String respuesta;
+        try {
+            port.consultarDatosLocalizacion(_consultarDatosLocalizacion_parameters);
+            JSONObject xmlJSONObj = XML.toJSONObject(GetOutputTagXML.extractText(CustomLoggingInterceptor.responseXml, "v1:ConsultarDatosLocalizacionReturn"));
+            respuesta = xmlJSONObj.toString(4);
+            
         } catch (Exception e) {
             System.out.println("Expected exception: ServicioLocalizacionException has occurred.");
             System.out.println(e.toString());
-            return _consultarDatosLocalizacion__return;
+            return e.toString();
         }
-        return _consultarDatosLocalizacion__return;
+        return respuesta;
     }
 
 }

@@ -31,7 +31,7 @@ public class LocationController {
     ModelMapper mapper;
     
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<ConsultarDatosLocalizacionResponse> getLocation(@RequestBody(required = true)ConsultarDatosLocalizacionDto consultarDatosLocalizacionDto ){
+    public ResponseEntity<String> getLocation(@RequestBody(required = true)ConsultarDatosLocalizacionDto consultarDatosLocalizacionDto ){
         return new ResponseEntity<>(locationService.getLocation(mapper.map(consultarDatosLocalizacionDto, ConsultarDatosLocalizacion.class)) , HttpStatus.OK);
     }
 }
